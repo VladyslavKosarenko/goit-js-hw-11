@@ -98,6 +98,13 @@ async function onLoadMore() {
     } else {
       
       displayImages(response.data.hits);
+      const totalHits = response.data.totalHits || 0;
+      const loadedImagesCount = page * perPage;
+      
+      if (loadedImagesCount >= totalHits) {
+        refs.loadMoreBtn.style.display = 'none';
+        Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
+      }
     }
   } catch (error) {
     console.error('Error:', error);

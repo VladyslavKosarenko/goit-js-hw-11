@@ -9,14 +9,20 @@ const refs = {
   markupGallery: document.querySelector('.gallery'),
   loadMoreBtn: document.querySelector('.load-more'),
 }
-let page = 1;
+let page = 1
 const perPage = 40;
+let currentQuery = '';
 refs.loadMoreBtn.style.display = 'none';
 refs.form.addEventListener('submit', onSubmit);
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
 async function onLoadMore() {
-  page++;
   const inputValue = refs.input.value;
+  if (inputValue !== currentQuery) {
+    currentQuery = inputValue; 
+    page = 1
+  }
+  page++;
+  
 
   try {
     const response = await axios.get(url, {
